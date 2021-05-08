@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class JdbcServices {
     //Change the comment to your password and leave the first line
-    private static String[] info = {"root", "123456"};
+    private static String[] info = {"root", "123456789"};
 
     
     static {
@@ -17,7 +17,7 @@ public class JdbcServices {
     }
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/saledb", info[0], info[1]);
+            return DriverManager.getConnection("jdbc:mysql://localhost/kiemthu", info[0], info[1]);
         } catch (SQLException ex) {
             System.out.println(ex);
         }
