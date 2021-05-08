@@ -42,7 +42,7 @@ public class UserServices {
             u.setSex(rs.getString("sex"));
             u.setRole(rs.getObject("role").toString());
         }  
-        
+        conn.close();
         return u;
     }
     
@@ -61,8 +61,9 @@ public class UserServices {
             stm.setString(6, password);
             
             int rs = stm.executeUpdate();
+            conn.close();
             
-            return rs > 0;
+            return rs > 0;            
             
         } catch (SQLException ex) {
             Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);

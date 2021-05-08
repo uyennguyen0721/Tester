@@ -13,6 +13,12 @@ public class Category {
     private int id;
     private String name, sex;
 
+    @Override
+    public String toString() {
+        return name + " " + sex;
+    }
+
+    
     /**
      * @return the id
      */

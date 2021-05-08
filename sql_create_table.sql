@@ -114,7 +114,7 @@ CREATE TABLE `product` (
   `image` mediumblob,
   `count` int DEFAULT '1',
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_pro_cate` FOREIGN KEY (`id`) REFERENCES `category` (`id`)
+  CONSTRAINT `fk_pro_cate` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

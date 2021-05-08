@@ -13,8 +13,8 @@ import java.util.Date;
  * @author Admin
  */
 public class Order {
-    private int count, payment_method, product_id, category_id;
-    private Date datetime;
+    private int count, payment_method, product_id, user_id;
+    private Date date_time;
     private BigDecimal price;
 
     /**
@@ -60,31 +60,17 @@ public class Order {
     }
 
     /**
-     * @return the category_id
+     * @return the date_time
      */
-    public int getCategory_id() {
-        return category_id;
+    public Date getDate_time() {
+        return date_time;
     }
 
     /**
-     * @param category_id the category_id to set
+     * @param datetime the date_time to set
      */
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-
-    /**
-     * @return the datetime
-     */
-    public Date getDatetime() {
-        return datetime;
-    }
-
-    /**
-     * @param datetime the datetime to set
-     */
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
+    public void setDate_time(Date datetime) {
+        this.date_time = datetime;
     }
 
     /**
@@ -99,6 +85,20 @@ public class Order {
      */
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    /**
+     * @return the user_id
+     */
+    public int getUser_id() {
+        return user_id;
+    }
+
+    /**
+     * @param user_id the user_id to set
+     */
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
     
 }

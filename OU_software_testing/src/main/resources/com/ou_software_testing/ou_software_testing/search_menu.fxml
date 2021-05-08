@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,8 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<GridPane prefHeight="840.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ou_software_testing.ou_software_testing.controller.MainController">
+<GridPane prefHeight="840.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ou_software_testing.ou_software_testing.controller.SearchMenuController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" />
@@ -54,7 +52,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Button fx:id="btn_return" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchMain" text="Return" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
+            <Button fx:id="btn_return" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToMain" text="Return" GridPane.columnIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
                </GridPane.margin>
@@ -85,13 +83,7 @@
                               <RowConstraints minHeight="10.0" percentHeight="100.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0">
-                                 <columns>
-                                    <TableColumn editable="false" prefWidth="75.0" text="PID" />
-                                    <TableColumn editable="false" prefWidth="119.0" text="Name" />
-                                    <TableColumn editable="false" prefWidth="83.0" text="Quantity" />
-                                    <TableColumn editable="false" prefWidth="138.0" text="Price" />
-                                 </columns>
+                              <TableView fx:id="tb_search_product" prefHeight="200.0" prefWidth="200.0">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </padding>
@@ -106,7 +98,7 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TextField fx:id="txt_id2" promptText="Enter id to search">
+                              <TextField fx:id="txt_search_keyword" promptText="Enter id to search">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -130,10 +122,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <GridPane GridPane.columnSpan="2" GridPane.rowSpan="2">
@@ -145,6 +137,7 @@
                               <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
@@ -162,7 +155,7 @@
                                     <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Số lượng" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Số lượng" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -178,7 +171,7 @@
                                     <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text layoutX="33.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Giá" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                              <Text layoutX="33.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Giá" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -186,31 +179,31 @@
                                     <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text fx:id="ttxt_pid" layoutX="71.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="asd854as6d5a1sd5" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Text fx:id="txt_pid" layoutX="71.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text fx:id="txt_name" layoutX="158.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name asd854as6d5a1sd5" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Text fx:id="txt_product_name" layoutX="158.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="20.0" />
                                  </GridPane.margin>
                               </Text>
-                              <Text fx:id="txt_quantity" layoutX="163.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="53" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
+                              <TextField fx:id="txt_quantity" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets left="10.0" />
+                                    <Insets left="10.0" right="30.0" />
                                  </GridPane.margin>
-                              </Text>
-                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </TextField>
+                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
@@ -222,10 +215,13 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Text fx:id="txt_price" strokeType="OUTSIDE" strokeWidth="0.0" text="1.000.000" textAlignment="CENTER">
+                                    <Text fx:id="txt_price" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
                                     </Text>
                                     <Text layoutX="10.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="đ" textAlignment="CENTER" GridPane.columnIndex="1">
                                        <font>
@@ -234,6 +230,22 @@
                                     </Text>
                                  </children>
                               </GridPane>
+                              <Text layoutX="30.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Category" textAlignment="CENTER" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fx:id="txt_product_category" layoutX="154.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Text>
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2">
@@ -246,7 +258,7 @@
                               <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Button fx:id="btn_confirm_order" maxHeight="80.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-font-weight: bold;" text="Xác nhận đặt hàng" GridPane.columnSpan="2" GridPane.valignment="TOP">
+                              <Button fx:id="btn_confirm_order" maxHeight="80.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addProductsInProductsList" style="-fx-font-weight: bold;" text="Xác nhận đặt hàng" GridPane.columnSpan="2" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -254,15 +266,7 @@
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Text fx:id="txt_order_result" strokeType="OUTSIDE" strokeWidth="0.0" text="Đặt thành công!" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets top="5.0" />
-                                 </GridPane.margin>
-                              </Text>
-                              <Button fx:id="btn_order_list" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Đơn hàng" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <Button fx:id="btn_order_list" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToOrderOrSellMenu" text="Đơn hàng" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

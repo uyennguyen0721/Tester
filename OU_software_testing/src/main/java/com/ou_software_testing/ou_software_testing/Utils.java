@@ -42,4 +42,13 @@ public class Utils {
         Matcher matcher = pattern.matcher(text);
         return matcher.find();
     }
+    
+    public static int ParseIntWithTryCatch (String number) {
+        try {
+            int result = Integer.parseInt(number);
+            return result;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
 }

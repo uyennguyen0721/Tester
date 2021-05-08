@@ -66,8 +66,8 @@ public class LoginController extends Controller{
     @FXML
     private void getLoginInfo(ActionEvent actionEvent) {
         if(txt_password.getText().length() != 0 && txt_phone_email.getText().length() != 0) {       
-              pw = txt_password.getText();
-              info = txt_phone_email.getText();
+              pw = txt_password.getText().strip();
+              info = txt_phone_email.getText().strip();
               try {
                     Connection conn = JdbcServices.getConnection();
                     UserServices userServices = new UserServices(conn);
