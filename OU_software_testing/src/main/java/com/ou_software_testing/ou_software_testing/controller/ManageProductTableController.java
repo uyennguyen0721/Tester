@@ -12,14 +12,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
 
 
 public class ManageProductTableController extends Controller{
@@ -37,18 +34,30 @@ public class ManageProductTableController extends Controller{
     private void filterProductsByKeyword(String kw){
         Connection conn = JdbcServices.getConnection();
         ProductServices productServices = new ProductServices(conn);
-        
+        boolean flag = false;
+        Product p = null;
         try {
             int id = Utils.ParseIntWithTryCatch(kw);
-            Product p = productServices.getProductById(id);
+            p = productServices.getProductById(id);
             if (p!=null)
                 this.listProduct.addProduct(p);
         } catch (SQLException ex) {
             Logger.getLogger(SearchMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        if(flag == true)
+            return;
         try {
+            conn = JdbcServices.getConnection();
+            productServices = new ProductServices(conn);
             ListProduct list = productServices.getProductByName(kw);
+            if (p!=null){
+                for (Product pro : list.getListProduct()) {
+                    if(pro.getId() == p.getId()){
+                        list.removeProductById(p.getId());
+                        break;                        
+                    }
+                }
+            }
             if (list != null)
                 this.listProduct.concatList(list);
         } catch (SQLException ex) {
@@ -80,6 +89,7 @@ public class ManageProductTableController extends Controller{
         txt_search_keyword.textProperty().addListener((observable, oldValue, newValue) -> {
             onChangeText(newValue);
         });  
+        filterProductsByKeyword("");
         loadColumns();
         loadProducts();
     }

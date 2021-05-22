@@ -38,7 +38,7 @@ public class UserServices {
             u.setName(rs.getString("name"));
             u.setEmail(rs.getString("email"));
             u.setLocation(rs.getString("location"));
-            u.setPhone(rs.getString("phone"));
+            u.setPhone(rs.getString("phone"));  
             u.setSex(rs.getString("sex"));
             u.setRole(rs.getObject("role").toString());
         }  
@@ -48,6 +48,16 @@ public class UserServices {
     
     public boolean addUserInfo(String name, String sex, String location, 
             String phone, String email, String password)  {
+        
+        //kiểm tra user đã tồn tại
+        try {
+            User u = getUserInfo(email, password);
+            if(u != null) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserServices.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         try {
             String sql = "Insert into saledb.user (name, sex, location, phone, email, password, role) "

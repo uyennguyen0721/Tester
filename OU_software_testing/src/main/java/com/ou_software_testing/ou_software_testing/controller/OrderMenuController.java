@@ -5,10 +5,14 @@
  */
 package com.ou_software_testing.ou_software_testing.controller;
 
+import com.ou_software_testing.ou_software_testing.App;
 import com.ou_software_testing.ou_software_testing.DataTemporary;
+import com.ou_software_testing.ou_software_testing.GlobalContext;
+import com.ou_software_testing.ou_software_testing.Rule;
 import com.ou_software_testing.ou_software_testing.Utils;
 import com.ou_software_testing.ou_software_testing.pojo.ListProduct;
 import com.ou_software_testing.ou_software_testing.pojo.Product;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Optional;
@@ -49,11 +53,11 @@ public class OrderMenuController extends ManageProductTableController{
             if(p != null) {
                 btn_adjust.setDisable(false);
                 btn_delete.setDisable(false);
+                txt_quantity.setText(String.valueOf(p.getCount()));
             } else {
                 btn_adjust.setDisable(true);
                 btn_delete.setDisable(true);
             }
-            txt_quantity.setText(String.valueOf(p.getCount()));
         });
     }
     
@@ -84,18 +88,34 @@ public class OrderMenuController extends ManageProductTableController{
     
     @FXML
     private void onAdjust() {
+        if (Utils.ParseIntWithTryCatch(txt_quantity.getText())== -1){
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                    "Nhập sai thông tin số lượng", "Vui lòng nhập đúng định dạng số");
+            a.show();
+            return;
+        }
         int quantity = Integer.parseInt(txt_quantity.getText());
-        int productCount = getProductByID(tb_orders.getSelectionModel().getSelectedItem().getId()).getCount();
-        if(quantity > 0 &&  quantity <= productCount ) { 
+        Product product = tb_orders.getSelectionModel().getSelectedItem();
+        int totalProduct = product.getTotalProduct();
+        if(quantity <= 0) {
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin","Nhập sai thông tin số lượng", "Vui lòng nhập lại thông tin số lượng đúng.");
+            a.show();
+            return;
+        }
+        
+        if((totalProduct - quantity) < 3 ) {
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                "Nhập sai thông tin số lượng", "Số lượng hàng trong kho sau khi đặt phải lớn hơn 3.\n"
+                        + "Số lượng hàng trong kho sau khi đặt là " +  
+                        String.valueOf(totalProduct - quantity)
+                        + ".\n Vui lòng nhập lại thông tin số lượng đúng.");
+            a.show();
+            return;
+        }
+        if(quantity > 0 &&  quantity <= totalProduct ) { 
             
-            for(Product p: listProductOrder.getListProduct()) {
-                if  (p.getId() ==  tb_orders.getSelectionModel().getSelectedItem().getId()) {
-                    p.setCount(quantity);
-                    break;
-                }
-            }
-            
-            DataTemporary.setListProductSelection(listProductOrder);
+//            product.setCount(quantity);
+            listProductOrder.getProductById(product.getId()).setCount(quantity);
             updateTable();
         } else {
             Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
@@ -120,7 +140,16 @@ public class OrderMenuController extends ManageProductTableController{
     
     //switch to Payment controller which dont exist yet - dung
     @FXML 
-    private void onConfirmOrder() {
-        
+    private void onConfirmOrder() throws IOException {
+        if(GlobalContext.getUser().getRole() == "user" 
+                && listProductOrder.getListProduct().size() > Rule.getMAX_PRODUCT_ORDER()) {
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Thông tin không hợp lệ", 
+                "Số lượng sản phẩm sai", "Khách hàng chỉ được đặt không quá "+ String.valueOf(Rule.getMAX_PRODUCT_ORDER())
+                        + " sản phẩm trong một hóa đơn");
+            a.show();
+            return;
+        }
+        DataTemporary.setListProductSelection(listProductOrder);
+        App.setRoot("notify_success_menu");
     }
 }

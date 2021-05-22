@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+//import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 
@@ -18,7 +19,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-        scene = new Scene(loadFXML("login"));        
+        scene = new Scene(loadFXML("login"));                 
+//        this.scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setTitle("Sale app");
         stage.setScene(scene);
         stage.setResizable(false);

@@ -2,6 +2,7 @@ package com.ou_software_testing.ou_software_testing.controller;
 
 import com.ou_software_testing.ou_software_testing.DataTemporary;
 import com.ou_software_testing.ou_software_testing.App;
+import com.ou_software_testing.ou_software_testing.Utils;
 import com.ou_software_testing.ou_software_testing.pojo.ListProduct;
 import com.ou_software_testing.ou_software_testing.pojo.Product;
 import com.ou_software_testing.ou_software_testing.services.JdbcServices;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -51,14 +53,26 @@ public class SellMenuController extends Controller{
         pid = txt_pid.getText();
         quantity = txt_quantity.getText();
         
+        if (Utils.ParseIntWithTryCatch(quantity) == -1){
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                    "Nhập sai thông tin số lượng", "Vui lòng nhập lại thông tin số lượng đúng định dang số");
+            a.show();
+            return;
+        }
+        
         try {
             Connection conn = JdbcServices.getConnection();
             ProductServices productServices = new ProductServices(conn);
 
             Product product = productServices.getProductById(Integer.parseInt(pid));
-            if (product == null) 
+            if (product == null)
                 return;
-            
+            if (product.getCount() - Utils.ParseIntWithTryCatch(quantity) < 3){
+                Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                "Nhập sai thông tin số lượng", "Số lượng hàng trong kho sau khi đặt phải lớn hơn 3. Vui lòng nhập lại thông tin số lượng đúng.");
+                a.show();
+                return;
+            }
             product.setCount(Integer.parseInt(txt_quantity.getText()));
             
             listProduct.removeProductById(product.getId());

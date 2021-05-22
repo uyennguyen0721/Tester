@@ -107,11 +107,17 @@ public class LoginController extends Controller{
 
                 boolean kq = userServices.addUserInfo(name,sex,location,phone,email,password);
                 if(kq) {
+                    conn = JdbcServices.getConnection();
+                    userServices = new UserServices(conn);
                     user = userServices.getUserInfo(phone, password);
                     GlobalContext.setUser(user);
                     switchToMain(actionEvent);
 
                     Alert a = Utils.makeAlert(Alert.AlertType.INFORMATION, "Đăng ký thành công"
+                            , "Success", "Thành công");
+                    a.show();
+                } else {
+                    Alert a = Utils.makeAlert(Alert.AlertType.INFORMATION, "Đăng ký thất bại, trùng email người dùng"
                             , "Success", "Thành công");
                     a.show();
                 }

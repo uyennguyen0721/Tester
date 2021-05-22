@@ -27,6 +27,6 @@ public class Controller implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        txt_name.setText(GlobalContext.getUser().getRole()+ ": " +GlobalContext.getUser().getName());
+//        txt_name.setText(GlobalContext.getUser().getRole()+ ": " +GlobalContext.getUser().getName());
     }
 }

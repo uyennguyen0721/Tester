@@ -2,10 +2,14 @@ package com.ou_software_testing.ou_software_testing.controller;
 
 import com.ou_software_testing.ou_software_testing.App;
 import com.ou_software_testing.ou_software_testing.DataTemporary;
+import com.ou_software_testing.ou_software_testing.GlobalContext;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainController extends Controller{   
@@ -23,6 +27,20 @@ public class MainController extends Controller{
         "notify_success",
         "notify_fail"
     };
+    @FXML private Button btn_TraCuu1;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
+        String role = GlobalContext.getUser().getRole();
+
+        //kiểm tra role
+        if("staff".equals(role)) {
+            btn_TraCuu1.setDisable(true);
+            btn_TraCuu1.setVisible(false);
+        }
+    }
+    
     
     @FXML
     private void switchToSellMenu(ActionEvent actionEvent) {       

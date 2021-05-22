@@ -9,7 +9,9 @@ import com.ou_software_testing.ou_software_testing.services.JdbcServices;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 /**
@@ -20,7 +22,7 @@ public class CategoryTester {
     Connection conn = JdbcServices.getConnection();
     
     
-    //Số loại sản phẩm không vượt quá 100.
+    //Số loại sản phẩm không vượt quá 50.
     @Test
     public void testQuantityBiggest() throws SQLException {
        List<Category> cates = new CategoryServices(conn).getCategorys();
@@ -45,14 +47,10 @@ public class CategoryTester {
                             sexs.add(c.getSex());
                         });
         
-        for(int i = 0; i < names.size() - 1; i++){
-            for(int k = i + 1; k < names.size(); k++){
-                if(names.get(i).equals(names.get(k)) && sexs.get(i).equals(sexs.get(k)))
-                    throw new Exception("Trùng loại sản phẩm");
-                else
-                    continue;
-            }          
-        }
+        Set<Category> uniqueCates = new HashSet<>(cates);
+        
+        Assertions.assertEquals(cates.size(), uniqueCates.size());
+        
     }
 
 

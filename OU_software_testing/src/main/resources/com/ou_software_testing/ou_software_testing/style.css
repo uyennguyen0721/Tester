@@ -55,3 +55,11 @@
 .combo-box-popup .list-view {
     -fx-font-size : 14pt;
 }
+.centeredTextArea{
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.centeredTextArea *.text {
+    -fx-text-alignment: center;
+}

@@ -53,6 +53,17 @@ public class ListProduct {
             index++;
         }
     }
+    public Product getProductById(int id){
+        Product product = new Product();
+        
+        for (Product p: listProduct){
+            if (p.getId() == id){
+                product = p;
+                break;
+            }
+        }
+        return product;
+    }
     
     public void setCount1(){
         for (Product p: listProduct){

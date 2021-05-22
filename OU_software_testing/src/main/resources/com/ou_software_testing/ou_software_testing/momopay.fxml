@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="834.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ou_software_testing.ou_software_testing.controller.MomopayController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="0.0" prefWidth="35.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="994.0" minWidth="10.0" prefWidth="331.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.0" minWidth="10.0" prefWidth="340.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="591.0" minWidth="10.0" prefWidth="573.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="77.0" minHeight="9.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="190.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="225.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="764.0" stroke="BLACK" strokeWidth="4.0" width="668.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="5" />
+      <Accordion />
+      <Text lineSpacing="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MoMoPay Store" textAlignment="CENTER" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="371 Nguyen Kiem, Ward, Go Vap District, HMC" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="-30.0" />
+         </GridPane.margin>
+      </Text>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No: 1900 5454 **" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="70.0" />
+         </GridPane.margin>
+      </Text>
+      <TableView fx:id="tb_search_product" prefHeight="358.0" prefWidth="763.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3">
+         <GridPane.margin>
+            <Insets left="30.0" right="30.0" />
+         </GridPane.margin>
+      </TableView>
+      <Label text="Date:" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="40.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="170.0" text="Time:" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Text fx:id="txt_date" strokeType="OUTSIDE" strokeWidth="0.0" text="10/4/2021" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="42.0" left="50.0" />
+         </GridPane.margin>
+      </Text>
+      <Text fx:id="txt_time" layoutX="471.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16:30" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="12.0" left="50.0" />
+         </GridPane.margin>
+      </Text>
+      <TextArea editable="false" opacity="0.45" prefHeight="129.0" prefWidth="611.0" styleClass="centeredTextArea" stylesheets="@style.css" text="Tel: +84 00 00 001*** Fax: +84 28 54147***&#10;Email: itou_testing@ou.edu.vn&#10;Thank You, Please come again.&#10;Powered by ou-testing" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="30.0" right="30.0" top="115.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextArea>
+      <Label text="Total:" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="30.0" top="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="377.0" layoutY="171.0" text="Cashier:" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" left="30.0" />
+         </GridPane.margin>
+      </Label>
+      <Label layoutX="46.0" layoutY="127.0" text="Invoice:" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="40.0" left="30.0" />
+         </GridPane.margin>
+      </Label>
+      <Text fx:id="txt_orderId" strokeType="OUTSIDE" strokeWidth="0.0" text=" #MM15412" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="42.0" left="100.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="txt_staff_name" layoutX="146.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Haungo" wrappingWidth="80.33935546875" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="12.0" left="100.0" />
+         </GridPane.margin>
+      </Text>
+      <Text fx:id="txt_total" strokeType="OUTSIDE" strokeWidth="0.0" text="10000000" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets right="100.0" top="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="txt_total1" layoutX="572.0" layoutY="630.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VND" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="50.0" top="20.0" />
+         </GridPane.margin>
+      </Text>
+      <ImageView fx:id="image_QR" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+         <image>
+            <Image url="@../../../qr-code-example.png" />
+         </image></ImageView>
+      <Button mnemonicParsing="false" onAction="#createQRcode" text="Refresh QR" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="40.0" right="40.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="btn_print" disable="true" layoutX="1125.0" layoutY="478.0" minWidth="130.0" mnemonicParsing="false" text="Print" textFill="#24ab2d" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <GridPane GridPane.columnIndex="3" GridPane.rowIndex="5">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="194.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="339.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Status order:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Text fx:id="txt_status" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="In propress" GridPane.columnIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Label layoutX="30.0" layoutY="39.0" text="Amount paid:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Text fx:id="txt_amount_paid" layoutX="224.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </GridPane>
+      <Button layoutX="939.0" layoutY="478.0" minWidth="130.0" mnemonicParsing="false" onAction="#cancelPay" text="Cancel" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="40.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="checkTransaction" layoutX="1120.0" layoutY="470.0" minWidth="130.0" mnemonicParsing="false" onAction="#checkTransaction" text="Check" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets right="40.0" />
+         </GridPane.margin>
+      </Button>
+   </children>
+</GridPane>

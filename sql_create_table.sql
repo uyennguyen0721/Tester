@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
 -- Host: localhost    Database: saledb
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	8.0.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -54,7 +54,7 @@ CREATE TABLE `order_detail` (
   `payment_method` int NOT NULL,
   `price` decimal(19,2) DEFAULT NULL,
   `count` int DEFAULT '1',
-  PRIMARY KEY (`product_id`,`user_id`),
+  PRIMARY KEY (`product_id`,`user_id`,`day_time`),
   KEY `fk_customer_id_idx` (`user_id`),
   KEY `fk_payment_id_idx` (`payment_method`),
   CONSTRAINT `fk_customer_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
@@ -69,7 +69,7 @@ CREATE TABLE `order_detail` (
 
 LOCK TABLES `order_detail` WRITE;
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
-INSERT INTO `order_detail` VALUES (1,1,'2020-04-19 00:00:00',1,100.99,1),(2,1,'2020-05-19 00:00:00',2,400.20,1);
+INSERT INTO `order_detail` VALUES (1,1,'2020-04-19 00:00:00',1,100.99,1),(1,2,'2020-06-29 00:00:00',1,380.29,3),(1,7,'2021-05-11 12:39:57',1,5000.00,1),(1,7,'2021-05-11 14:07:35',1,5000.00,1),(2,1,'2020-05-19 00:00:00',2,400.20,1),(2,7,'2021-05-11 12:41:19',1,500.00,2),(3,2,'2021-05-10 20:35:11',1,100.00,1),(3,7,'2021-05-11 14:07:35',1,3.00,3);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,8 +114,9 @@ CREATE TABLE `product` (
   `image` mediumblob,
   `count` int DEFAULT '1',
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_pro_cate` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `fk_category_id_idx` (`category`),
+  CONSTRAINT `fk_category_id` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +125,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'ao den',1,'USA',5000000.00,'M',NULL,2),(2,'ao den',1,'USA',500.00,'XL',NULL,6),(3,'ao den',2,'VN',3.00,'M',NULL,30);
+INSERT INTO `product` VALUES (1,'ao den1',1,'USA',5000.00,'XL',NULL,8),(2,'ao den2',1,'USA',500.00,'XL',NULL,7),(3,'ao den3',2,'VN',3.00,'M',NULL,192);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +146,7 @@ CREATE TABLE `user` (
   `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `role` enum('user','staff','manager') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,9 +155,13 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Dũng','male','Tp. Ho Chi Minh','1234567895','dung@gmail.com','123','manager'),(2,'Hậu','male','Tây Nguyên','1234567855','hau@gmail.com','456','manager'),(3,'Alex','female','USA','8465655123','alex5@gmail.com','789','user'),(4,'Grant','male','India','6515661565','grant.ou@gmail.com','111','user'),(5,'admin','male','Russia','5655665655','admin@gmail.com','123456','manager'),(6,'staff','female','Russia','6565487897','staff@gmail.com','123456','staff'),(7,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(8,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(9,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(10,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(11,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(12,'hau111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user');
+INSERT INTO `user` VALUES (1,'Dũng','male','Tp. Ho Chi Minh','1234567895','dung@gmail.com','123','manager'),(2,'Hậu','male','Tây Nguyên','1234567855','hau@gmail.com','456','manager'),(3,'Alex','female','USA','8465655123','alex5@gmail.com','789','user'),(4,'Grant','male','India','6515661565','grant.ou@gmail.com','111','user'),(5,'admin','male','Russia','5655665655','admin@gmail.com','123456','manager'),(6,'staff','female','Russia','6565487897','staff@gmail.com','123456','staff'),(7,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(8,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(9,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(10,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(11,'hau1111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(12,'hau111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user'),(13,'hau111','male','14/41 le thi hong','0123456789','h@gmail.com','123','user');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'saledb'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -167,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-21  2:41:02
+-- Dump completed on 2021-05-11 14:08:37

@@ -17,6 +17,11 @@ public class ListCategory {
     public ListCategory() {
     }
     
+    public String getNameById(int id){
+        Category c = getCategoryById(id);
+        return c.getName() + " " +c.getSex() ;
+    }
+    
     public List<String> getListCategoryName(){
         List<String> list = new ArrayList<>();
         for (Category cate: getListCategory()){

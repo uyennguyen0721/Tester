@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <GridPane prefHeight="840.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ou_software_testing.ou_software_testing.controller.LoginController">
    <columnConstraints>
@@ -140,6 +141,9 @@
                <font>
                   <Font size="16.0" />
                </font>
+               <graphic>
+                  <FontIcon iconLiteral="fas-user-plus" wrappingWidth="25.0" />
+               </graphic>
             </Button>
             <Button fx:id="btn_register1" layoutX="224.0" layoutY="495.0" onAction="#switchToLogin" text="Quay lại" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="TOP">
                <padding>
@@ -148,6 +152,9 @@
                <font>
                   <Font size="16.0" />
                </font>
+               <graphic>
+                  <FontIcon iconLiteral="fas-chevron-circle-left" wrappingWidth="20.0" />
+               </graphic>
             </Button>
          </children>
       </GridPane>

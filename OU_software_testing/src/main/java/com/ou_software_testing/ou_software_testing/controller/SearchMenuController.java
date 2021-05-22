@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ou_software_testing.ou_software_testing.controller;
 
 import com.ou_software_testing.ou_software_testing.App;
 import com.ou_software_testing.ou_software_testing.DataTemporary;
 import com.ou_software_testing.ou_software_testing.GlobalContext;
+import com.ou_software_testing.ou_software_testing.Rule;
 import com.ou_software_testing.ou_software_testing.Utils;
+import com.ou_software_testing.ou_software_testing.pojo.Category;
+import com.ou_software_testing.ou_software_testing.pojo.ListCategory;
 import com.ou_software_testing.ou_software_testing.pojo.ListProduct;
 import com.ou_software_testing.ou_software_testing.pojo.Product;
+import com.ou_software_testing.ou_software_testing.services.CategoryServices;
+import com.ou_software_testing.ou_software_testing.services.JdbcServices;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ResourceBundle;
@@ -25,7 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TablePosition;
@@ -46,6 +46,7 @@ public class SearchMenuController extends ManageProductTableController{
     
     private ListProduct listProductsOrders = DataTemporary.getListProductSelection();
     private ListProduct listChoose = new ListProduct();
+    private ListCategory listCategory = new ListCategory();
     ObservableList<TablePosition> selectedCells = FXCollections.observableArrayList();
     
     @FXML
@@ -66,9 +67,11 @@ public class SearchMenuController extends ManageProductTableController{
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb); //To change body of generated methods, choose Tools | Templates.
         
+        getCategoryList();
         tb_search_product.getSelectionModel().setSelectionMode(
             SelectionMode.MULTIPLE
         );
+        
         tb_search_product.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
@@ -80,9 +83,10 @@ public class SearchMenuController extends ManageProductTableController{
                 for (int i = 0; i < list.size(); i++)
                     listChoose.addProduct(list.get(i));
 
-                txt_quantity.setText(String.valueOf(p.getCount()));
+                txt_quantity.setText("1");
                 txt_pid.setText(String.valueOf(p.getId()));
                 txt_product_name.setText(p.getName());
+                txt_product_category.setText(listCategory.getNameById(p.getCategory()));
                 txt_price.setText(p.getPrice().toString());
             }
         });
@@ -100,30 +104,52 @@ public class SearchMenuController extends ManageProductTableController{
             a.show();
             return;
         }
-        if( count > p.getCount() || count <= 0 )  {
+        if(count <= 0) {
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin","Nhập sai thông tin số lượng", "Vui lòng nhập lại thông tin số lượng đúng.");
+            a.show();
+            return;
+        }
+        if((p.getCount() - count) < 3 ) {
+            p = tb_search_product.getSelectionModel().getSelectedItem();
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                "Nhập sai thông tin số lượng", "Số lượng hàng trong kho sau khi đặt phải lớn hơn 3. Vui lòng nhập lại thông tin số lượng đúng.");
+            a.show();
+            return;
+        }
+        if( count > p.getCount() )  {
             Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
                     "Nhập sai thông tin số lượng", "Vui lòng nhập lại thông tin số lượng đúng");
             a.show();
             return;
         }
-        
-        boolean rs  = false;
-        p.setCount(count);
-        if(listProductsOrders.getListProduct().size() <= 0) {
-            rs = listProductsOrders.addProduct(p);
-            getNotify(rs);
-        } else { 
-            for (Product pro: listProductsOrders.getListProduct()) {
-                if(pro.getId() == p.getId())  {
-                    pro.setCount(pro.getCount() + count);
-                    getNotify(true);
-                    return;
-                }
-                rs = listProductsOrders.addProduct(p);
-                getNotify(rs);
-            }
+        if(listProductsOrders.getListProduct().size() >= Rule.getMAX_PRODUCT_ORDER()) {
+            Alert a = Utils.makeAlert(Alert.AlertType.ERROR, "Nhập sai thông tin", 
+                    "Quá số lượng sản phẩm đặt cho phép", "Số lượng sản phẩm cho phép đặt trong một lần là " 
+                            + String.valueOf(Rule.getMAX_PRODUCT_ORDER()));
+            a.show();
+            return;
         }
+        DataTemporary.getListProductSelection().addProduct(p);
+        DataTemporary.getListProductSelection().getProductById(p.getId()).setTotalProduct(p.getCount());
+        DataTemporary.getListProductSelection().getProductById(p.getId()).setCount(count);
         
+//        boolean rs  = false;
+//        int oldCount = p.getCount();
+//        if(listProductsOrders.getListProduct().size() <= 0) {
+//            rs = listProductsOrders.addProduct(p);
+//            getNotify(rs);
+//        } else {
+//            for (Product pro: listProductsOrders.getListProduct()) {
+//                if(pro.getId() == p.getId())  {
+//                    pro.setCount(pro.getCount() + count);
+//                    getNotify(true);
+//                    return;
+//                }
+//                rs = listProductsOrders.addProduct(p);
+//                getNotify(rs);
+//            }
+//        }
+//        p.setCount(oldCount);
         
     }
     
@@ -151,5 +177,17 @@ public class SearchMenuController extends ManageProductTableController{
                     "Error", "Order fail, please check products list");
         
         a.show();
+    }
+    
+    private void getCategoryList() {
+        try {
+            Connection conn = JdbcServices.getConnection();
+            CategoryServices categoryServices = new CategoryServices(conn);
+            List<Category> list = categoryServices.getCategorys();
+            listCategory.setListCategory(list);
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

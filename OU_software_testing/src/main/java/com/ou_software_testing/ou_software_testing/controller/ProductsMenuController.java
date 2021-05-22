@@ -1,5 +1,6 @@
 package com.ou_software_testing.ou_software_testing.controller;
 
+import com.ou_software_testing.ou_software_testing.Rule;
 import com.ou_software_testing.ou_software_testing.Utils;
 import com.ou_software_testing.ou_software_testing.pojo.Category;
 import com.ou_software_testing.ou_software_testing.pojo.ListCategory;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,6 +38,30 @@ public class ProductsMenuController extends ManageProductTableController{
     @FXML
     public void HandleAdd(ActionEvent actionEvent) {
         Product p = new Product();
+        
+        if(cb_category.getSelectionModel().isEmpty()) {
+            Utils.makeAlert(Alert.AlertType.ERROR, "Chưa chọn loại sản phẩm, vui lòng chọn lại").show();
+            return;
+        } else if (txt_product_name.getText().strip().isEmpty()) {
+            Utils.makeAlert(Alert.AlertType.ERROR, "Chưa nhập tên sản phẩm, vui lòng nhập lại").show();
+            return;
+        } else if (txt_quantity.getText().isEmpty()) {
+            Utils.makeAlert(Alert.AlertType.ERROR, "Chưa nhập số lượng, vui lòng nhập lại").show();
+            return;
+        } else if (txt_price.getText().isEmpty()) {
+            Utils.makeAlert(Alert.AlertType.ERROR, "Chưa nhập đơn giá, vui lòng nhập lại").show();
+            return;
+        } else if (Integer.parseInt(txt_quantity.getText()) < Rule.getMIN_PRODUCT() || Integer.parseInt(txt_quantity.getText()) > Rule.getMAX_PRODUCT() ) {
+            Utils.makeAlert(Alert.AlertType.ERROR, 
+                    String.format("số lượng sản phẩm phải trong khoảng từ %d tới %d, vui lòng nhập lại", 
+                            Rule.getMIN_PRODUCT(),
+                            Rule.getMAX_PRODUCT()
+                    )).show();
+            return;
+        } else if (txt_pid.getText().isEmpty()) {
+            Utils.makeAlert(Alert.AlertType.ERROR, "Chưa nhập id sản phẩm, vui lòng nhập lại").show();
+            return;
+        }
         
         p.setId(Integer.parseInt(txt_pid.getText()));
         Category cate = (Category) cb_category.getSelectionModel().getSelectedItem();
@@ -103,6 +129,16 @@ public class ProductsMenuController extends ManageProductTableController{
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb); 
         this.getCategoryList();
+        txt_quantity.textProperty().addListener((ObservableValue<? extends String> ov, String t, String t1) -> {
+                if(!t1.matches("\\d*"))  {
+                    txt_quantity.setText(t1.replaceAll("[^\\d]", ""));
+                }
+        });
+        txt_price.textProperty().addListener((ObservableValue<? extends String> ov, String t, String t1) -> {
+                if(!t1.matches("\\d*"))  {
+                    txt_price.setText(t1.replaceAll("[^\\d]", ""));
+                }
+        });
         tb_search_product.setOnMouseClicked(event -> {
             Product p = tb_search_product.getSelectionModel().getSelectedItem();
             

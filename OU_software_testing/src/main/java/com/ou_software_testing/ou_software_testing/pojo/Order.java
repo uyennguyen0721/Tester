@@ -17,6 +17,27 @@ public class Order {
     private Date date_time;
     private BigDecimal price;
 
+    public Order() {
+    }
+
+    public Order(int count, int payment_method, int product_id, int user_id, BigDecimal price) {
+        this.count = count;
+        this.payment_method = payment_method;
+        this.product_id = product_id;
+        this.user_id = user_id;
+        this.price = price;
+    }
+
+    public Order(int count, int payment_method, int product_id, int user_id, Date date_time, BigDecimal price) {
+        this.count = count;
+        this.payment_method = payment_method;
+        this.product_id = product_id;
+        this.user_id = user_id;
+        this.date_time = date_time;
+        this.price = price;
+    }
+    
+    
     /**
      * @return the count
      */

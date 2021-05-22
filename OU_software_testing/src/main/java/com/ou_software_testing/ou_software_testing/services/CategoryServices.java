@@ -32,7 +32,7 @@ public class CategoryServices {
         try {
             conn = JdbcServices.getConnection();
             Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("Select * from category");
+            ResultSet rs = stm.executeQuery("Select * from category limit 50");
             
             
             while(rs.next()) {
